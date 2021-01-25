@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: labproj02-deploy
+  name: labproj02-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labproj02-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: labproj02-deploy
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/labproj02/calendardb:1.1
+        name: calendardb
+        ports:
+        - containerPort: 8080
+        resources: {}
+        envFrom:
+        - configMapRef:
+            name: labproj02-cmap
+        - secretRef:
+            name: labproj02-secret
+status: {}
